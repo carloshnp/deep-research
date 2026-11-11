@@ -37,6 +37,29 @@ A line with no dash and no scientific notation is written back byte for byte.
 - Environments: each LaTeX environment in math has double dollar delimiters (see references/math-and-latex-style.md).
 - Final count: after the script runs, the report has zero em dashes and zero en dashes outside code blocks.
 
+## Run it inside the rebuild cycle, not once at the end
+
+A report assembled from subsection files is rebuilt every time a fix lands, and each rebuild restores what the previous pass removed. Order the cycle so each step survives the next:
+
+1. Edit the subsection file, never the assembled report, because assembly overwrites the report.
+2. Re-assemble from the subsection files.
+3. Register every cited URL and render the Sources block from the assembled body (procedure: the link-style section of `grounded-citations`).
+4. Run this script.
+5. Re-run the per-change assertion script, then the citation verify.
+
+**Any normalisation pass you write by hand has to skip fenced blocks.** This script leaves fenced lines alone; a hand-rolled regex does not. Converting `[text]` to italics also converts Mermaid node labels of the form `A[Text]` and leaves every diagram unparseable, so track fence state in the loop or replace only outside code spans. A heading-demotion pass has the same trap: `### ` inside a fence is diagram text, not a heading.
+
+**Currency signs return with every rebuild**, because the source files still hold them. Convert `$` to `&#36;` after each rebuild rather than once, and re-read the relative links as well: a path written from inside a subsection file resolves at a different depth once the text sits in `outputs/<slug>.md`, so a link that works in the fragment 404s in the report.
+
+## The Sources block never gets cleaned
+
+The rendered Sources block separates URL from title with an em dash, and the citation verify compares that block byte for byte against a fresh render, so cleaning the block makes the verify report every line as disagreeing with the ledger. Pick one order and say which in the provenance:
+
+1. Clean the body, render the block last, and let the block keep its dashes. The zero-dash rule then holds for prose only.
+2. Clean after rendering and expect block mismatches until it is re-rendered. Never "fix" a mismatch by hand-editing the block.
+
+A source registered with no title renders a dangling separator. The verify parses the line, so one empty title reads as a URL mismatch and takes the whole block down: register a title for every source, even a bare host.
+
 ## Pitfalls
 
 - The script changes text in place. Keep the report under version control, so a bad run can be reverted.

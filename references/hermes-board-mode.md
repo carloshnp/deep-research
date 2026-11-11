@@ -22,6 +22,8 @@ Use one board per topic. Creating a board is a database change, so confirm with 
 
 Cards use the task types in references/deep-mode.md: source-pack, write, deep, audit, fixer, build. Waves drain in sequence. Create each fixer with its audit card as a parent, so the fixer waits for the audit.
 
+**Gate a card on every artifact it reads, not only on the wave's source cards.** A coverage map that maps planned subsections to pack rows reads the section plans, so the plans card is its parent; gated on the packs alone it sits in `todo` past a `plans/` that is still empty, then blocks correctly rather than inventing a subsection inventory. Before creating a card, list its inputs and make each one a parent, then re-read the order: an artifact-order mistake looks identical to a worker failure from the board.
+
 ## Kanban tools
 
 - kanban_create: create a card. Pass an idempotency key on every create, and pass parent ids so the gates hold.
@@ -40,9 +42,17 @@ Cards use the task types in references/deep-mode.md: source-pack, write, deep, a
 - `hermes kanban list`
 - `hermes kanban show <id>`
 
-## Liveness
+## Liveness and worker exit
 
-If no card of a wave has moved after about five minutes, check one card with `hermes kanban show <id>`. If the wave is still stalled, switch its tasks to subagent mode (`references/deep-mode.md`) and record the switch in the state file, in the `switch` field.
+Two different failures look alike from the board, so read before acting:
+
+- **Nothing moves for about five minutes and no file exists**: check one card with `hermes kanban show <id>`. If the wave is still stalled, switch its tasks to subagent mode (`references/deep-mode.md`) and record the switch in the state file, in the `switch` field.
+- **The worker exited without its file** (a `worker_result` carrying a protocol violation or a "kept retrying" message, output path empty): the card stays `running` while nothing consumes it, and the stale timeout is hours. Run that task yourself as a subagent, brief it with the route that actually works, cap the retries in the brief ("stop retrying a route after two failures"), and record the switch with its reason. Re-creating the identical brief just stalls again.
+- **A file exists and the card is still running**: the worker is in its closing checks. Read the file's mtime before calling it stuck; a card that writes every few minutes is working, however long it has run.
+
+## Accepting a card
+
+The completion summary is a self-report. Re-run the load-bearing check the card names. On a build card also read the saved output itself: a suite that prints `PASS` counters while `failed_commands` sits above zero has checks that crash before printing a `FAIL` line, so the counters look clean and the summary cites them. Grep the output for `Traceback` and for non-zero return codes before accepting.
 
 ## Fan-out inside a card
 

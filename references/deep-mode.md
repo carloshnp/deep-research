@@ -42,6 +42,21 @@ If a queued-task wave makes no progress for about five minutes, stop waiting on 
 
 A task's or child's final message is a self-report. Before you accept it, re-run the load-bearing check: recount, grep the corrected value, verify that the file exists. Never accept a summary without that check.
 
+## Writer artifact contract
+
+A wave of writers run from the same brief still diverge, and the divergence is mechanical rather than thoughtful. Run this check over the whole batch before accepting any of it, and repair by reassignment rather than by hand.
+
+- **Filename.** Every file sits at the path the plan's `file` field names. A writer that invents `S4-1-cash-rent.md` where the plan says `S4.1.md` passes a reader and breaks every later stage that keys on the id.
+- **Heading.** The first line carries the id and the plan's title, verbatim. Own the level in the assembler: it writes the subsection heading and demotes headings inside a body one level. Key the demotion on "not the subsection heading", never on a prefix: after assembly a subsection reads `### 1.1`, so a `^### (?!S\d)` filter quietly demotes every subsection along with the body.
+- **Citation presence.** Every file holds at least one inline link or id. Writers drop links silently and still report the file complete; in a measured run twenty of thirty-seven files came back with none, across three separate batches, each announced as done.
+- **Verbatim titles.** A retitle issued mid-run reaches the plan, not the file already written. Patch the plan title and rebuild from it.
+
+Anything a writer must not do to the artifact (add a section intro, rename a heading, edit the assembled report instead of its own fragment) belongs in the brief's output contract, because a child cannot ask.
+
+## Fixer tasks
+
+A fixer that replaces a string can report success without the replacement landing: the batch may fail on an ambiguous match, or land one copy and leave another. Give the per-change check one assertion per finding in both directions, a presence test for the new wording and an absence test for the old, and treat the fixer's report as a claim until that script has run. A presence test alone passes on a fix that never landed and on a fix that landed in one of two places.
+
 ## Task types
 
 Deep waves use these task types, in this order: source-pack, write, deep, audit, fixer, build. Each task points at BRIEFING.md and at its section plan instead of paraphrasing them.
