@@ -27,7 +27,7 @@ Deep runs in four phases:
 
 Deep runs in waves of tasks: source-pack, write, deep, audit, fixer, build. Each task points at `BRIEFING.md` and the section plan; never paraphrase specs into task text. Waves drain in sequence; audits gate fixers. Tasks may fan out parallel fetching to subagents, with one narrow question and one output path per child. Completion summaries are self-reports: re-run the load-bearing check (recount, grep the corrected value, verify the file) before accepting a task. The procedure is in `references/deep-mode.md`; the briefing contract is in `references/plans-and-briefings.md`.
 
-Hermes: the same waves run as kanban cards, one board per topic. See `references/hermes-board-mode.md` (HERMES ONLY).
+Hermes: the same waves run as kanban tasks, one board per topic. See `references/hermes-board-mode.md` (HERMES ONLY).
 
 ## Artifacts per tier
 

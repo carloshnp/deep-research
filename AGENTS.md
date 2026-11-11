@@ -8,7 +8,7 @@ Deep research runs as waves of tasks. Every agent uses subagent mode by default:
 
 Queued-task mode is allowed only when the harness passes the one-task probe in references/deep-mode.md.
 
-Hermes: board mode (kanban cards) is the Hermes-only mode. Its file is references/hermes-board-mode.md (HERMES ONLY). Other agents do not follow that file.
+Hermes: board mode (kanban tasks) is the Hermes-only mode. Its file is references/hermes-board-mode.md (HERMES ONLY). Other agents do not follow that file.
 
 ## Scripts
 

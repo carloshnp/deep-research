@@ -43,7 +43,7 @@ A report assembled from subsection files is rebuilt every time a fix lands, and 
 
 1. Edit the subsection file, never the assembled report, because assembly overwrites the report.
 2. Re-assemble from the subsection files.
-3. Register every cited URL and render the Sources block from the assembled body (procedure: the link-style section of `grounded-citations`).
+3. Register every cited URL and render the Sources block from the assembled body (procedure: `scripts/sources.py`).
 4. Run this script.
 5. Re-run the per-change assertion script, then the citation verify.
 

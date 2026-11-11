@@ -48,7 +48,7 @@ A wave of writers run from the same brief still diverge, and the divergence is m
 
 - **Filename.** Every file sits at the path the plan's `file` field names. A writer that invents `S4-1-cash-rent.md` where the plan says `S4.1.md` passes a reader and breaks every later stage that keys on the id.
 - **Heading.** The first line carries the id and the plan's title, verbatim. Own the level in the assembler: it writes the subsection heading and demotes headings inside a body one level. Key the demotion on "not the subsection heading", never on a prefix: after assembly a subsection reads `### 1.1`, so a `^### (?!S\d)` filter quietly demotes every subsection along with the body.
-- **Citation presence.** Every file holds at least one inline link or id. Writers drop links silently and still report the file complete; in a measured run twenty of thirty-seven files came back with none, across three separate batches, each announced as done.
+- **Citation presence.** Every file holds at least one inline link or id. Writers drop links silently and still report the file complete, so count the links in every file rather than trusting the report.
 - **Verbatim titles.** A retitle issued mid-run reaches the plan, not the file already written. Patch the plan title and rebuild from it.
 
 Anything a writer must not do to the artifact (add a section intro, rename a heading, edit the assembled report instead of its own fragment) belongs in the brief's output contract, because a child cannot ask.

@@ -47,7 +47,7 @@ Hermes: the local browser tool is `browser_exec`, used with `local=true`.
 
 Hermes only, in references/hermes-board-mode.md:
 
-Hermes: board mode runs a wave as kanban cards with the `hermes kanban` commands and the kanban tools (kanban_create, kanban_show, kanban_list, kanban_link, kanban_comment, kanban_complete, kanban_block, kanban_unblock, kanban_request_review, kanban_request_changes). Its create calls take an `idempotency_key` parameter, and a card worker may fan out with `delegate_task`.
+Hermes: board mode runs a wave as kanban tasks with the `hermes kanban` commands and the kanban tools (kanban_create, kanban_show, kanban_list, kanban_link, kanban_comment, kanban_complete, kanban_block, kanban_unblock, kanban_request_review, kanban_request_changes). Its create calls take an `idempotency_key` parameter, and a task worker may fan out with `delegate_task`.
 
 ## Install
 

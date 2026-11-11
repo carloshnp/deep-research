@@ -26,4 +26,4 @@ Run `check_plan.py` on `templates/template-plano-secao.md` before anything else.
 
 ## Vocabulary in gate code and messages
 
-The gate scripts follow the repo's word rules: no `card` or `cards` (use `entry`), and `dispatch` or `kanban` only on lines that start with `Hermes`. Use `start` where a process would say dispatch.
+The gate scripts take their wording from the skill's own sentences, so a pattern changes only when that sentence does.

@@ -15,7 +15,7 @@ metadata:
 
 **Mode rule.** Deep runs as waves of tasks. Use subagent mode unless the harness passes its probe: the one-task probe in `references/deep-mode.md` (queued-task mode, for a harness with a task queue that has parent links).
 
-Hermes: use board mode (kanban cards) only after the dispatcher probe in `references/hermes-board-mode.md` (HERMES ONLY; other agents do not follow that file).
+Hermes: use board mode (kanban tasks) only after the dispatcher probe in `references/hermes-board-mode.md` (HERMES ONLY; other agents do not follow that file).
 
 Run a source-heavy investigation at one of three depths. Retrieval order, paper search, and evidence tiers are fixed for all tiers. What changes with depth is execution shape and output structure.
 
@@ -137,7 +137,7 @@ Every child brief also states its output contract: the exact file path, the requ
 
 Deep: run waves of tasks (source-pack, write, deep, audit, fixer, build). Each task points at `BRIEFING.md` and its section plan. A task may fan out parallel fetching to subagents, with one narrow question and one output path per child. Waves drain in sequence, audits gate fixers. Write every wave's brief to disk before it goes out, and record each task in the state file (`state.json`; format in `references/deep-mode.md`). See `references/depth-tiers.md`.
 
-Hermes: the same waves run as kanban cards, with an `idempotency_key` on every create and parent links for the gates. See `references/hermes-board-mode.md`.
+Hermes: the same waves run as kanban tasks, with an `idempotency_key` on every create and parent links for the gates. See `references/hermes-board-mode.md`.
 
 After gathering, update the plan ledger and verification log. Record exactly what failed and proceed blocked or partial rather than silently.
 
